@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d5c63">
+  <title>濟州島自由行｜2026 家庭自駕</title>
+  <style>
+    :root {
+      --ink: #19343a;
+      --muted: #60777b;
+      --teal: #0d5c63;
+      --teal-light: #e7f3f1;
+      --coral: #e7785b;
+      --sand: #fffaf2;
+      --line: #dce8e5;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(25, 52, 58, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #f4f8f6;
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.65;
+      font-size: 17px;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(100% - 28px, 760px); margin: 0 auto; }
+
+    .hero {
+      color: var(--white);
+      background: linear-gradient(145deg, #0d5c63 0%, #24817d 64%, #f09a70 160%);
+      padding: 34px 0 30px;
+      border-radius: 0 0 28px 28px;
+    }
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 11px;
+      color: #dff5ee;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      font-size: 14px;
+      letter-spacing: .08em;
+    }
+    h1 { margin: 0; font-size: clamp(32px, 8vw, 50px); line-height: 1.15; letter-spacing: .04em; }
+    .hero p { margin: 14px 0 0; color: #e9f8f2; font-size: 17px; }
+    .summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 23px;
+    }
+    .summary-item {
+      padding: 13px 14px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 14px;
+      font-size: 15px;
+    }
+    .summary-item strong { display: block; color: #fff; font-size: 16px; }
+
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: 14px 0 22px;
+      padding: 9px 10px;
+      background: rgba(244,248,246,.94);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 5px 18px rgba(25,52,58,.06);
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .sticky-nav::-webkit-scrollbar { display: none; }
+    .sticky-nav a {
+      display: inline-block;
+      margin-right: 6px;
+      padding: 7px 12px;
+      color: var(--teal);
+      background: var(--white);
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .notice {
+      margin-bottom: 22px;
+      padding: 16px 17px;
+      background: #fff3e6;
+      border-left: 5px solid var(--coral);
+      border-radius: 13px;
+      color: #69483d;
+      font-size: 16px;
+    }
+    .section-title { margin: 28px 0 12px; font-size: 25px; letter-spacing: .04em; }
+    .section-title small { display: block; margin-top: 2px; color: var(--muted); font-size: 14px; font-weight: 500; letter-spacing: 0; }
+
+    .day-card {
+      margin: 16px 0;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      scroll-margin-top: 78px;
+    }
+    .key-time-card {
+      margin-top: 22px;
+      border: 2px solid var(--coral);
+      box-shadow: 0 12px 30px rgba(231, 120, 91, 0.16);
+    }
+    .key-time-card .day-head {
+      color: var(--white);
+      background: linear-gradient(135deg, #c95f4c, var(--coral));
+    }
+    .key-time-card .day-head p { color: #fff2ed; }
+    .key-time-card .day-number { background: #8f3e36; }
+    .key-time-card .stops { padding: 10px 18px 18px; background: #fffaf7; }
+    .key-time-card .stop {
+      margin: 8px 0;
+      padding: 14px 12px;
+      background: var(--white);
+      border: 1px solid #f4d2c8;
+      border-radius: 13px;
+    }
+    .prep-card {
+      margin-top: 28px;
+      border-color: #efd49b;
+      background: #fffaf0;
+      box-shadow: 0 10px 26px rgba(190, 133, 42, 0.10);
+    }
+    .prep-card .day-head { background: #fff0c9; }
+    .prep-card .day-number { width: auto; min-width: 48px; padding: 0 8px; background: #c7892f; font-size: 16px; }
+    .prep-card .stops { padding-top: 8px; }
+    .prep-card .stop { padding: 13px 0; }
+    .prep-card .time { color: #b77819; }
+    .day-head {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 18px 18px 15px;
+      background: linear-gradient(90deg, var(--teal-light), #fff);
+    }
+    .day-number {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      color: var(--white);
+      background: var(--teal);
+      border-radius: 15px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .day-head h3 { margin: 0; font-size: 21px; }
+    .day-head p { margin: 1px 0 0; color: var(--muted); font-size: 15px; }
+    .stay { color: var(--teal); font-weight: 700; }
+    .stops { padding: 3px 18px 17px; }
+    .stop {
+      display: grid;
+      grid-template-columns: 66px 1fr;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #edf2f0;
+    }
+    .stop:last-child { border-bottom: 0; padding-bottom: 3px; }
+    .time { color: var(--coral); font-size: 15px; font-weight: 800; }
+    .place { font-size: 18px; font-weight: 800; }
+    .desc { margin-top: 2px; color: var(--muted); font-size: 15px; }
+
+    footer { padding: 28px 0 42px; color: var(--muted); text-align: center; font-size: 14px; }
+    @media (max-width: 420px) {
+      body { font-size: 16px; }
+      .wrap { width: min(100% - 22px, 760px); }
+      .hero { padding-top: 28px; }
+      .summary { gap: 8px; }
+      .summary-item { padding: 11px 10px; font-size: 14px; }
+      .summary-item strong { font-size: 15px; }
+      .day-head, .stops { padding-left: 15px; padding-right: 15px; }
+      .stop { grid-template-columns: 59px 1fr; gap: 9px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">2026 家庭自駕旅行</span>
+      <h1>濟州島自由行</h1>
+      <p>慢慢玩、安心走，把濟州島的風景留給全家。</p>
+      <div class="summary">
+        <div class="summary-item"><strong>去程</strong>10/30（五）14:25 桃園 → 17:25 濟州</div>
+        <div class="summary-item"><strong>回程</strong>11/05（四）22:15 濟州 → 23:45 桃園</div>
+        <div class="summary-item"><strong>交通</strong>全程自駕</div>
+        <div class="summary-item"><strong>步調</strong>每天 3–4 站，不趕行程</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <nav class="sticky-nav" aria-label="行程快速導覽">
+      <a href="#important-times">重要時間</a>
+      <a href="#day1">D1</a><a href="#day2">D2</a><a href="#day3">D3</a>
+      <a href="#day4">D4</a><a href="#day5">D5</a><a href="#day6">D6</a><a href="#day7">D7</a>
+      <a href="#before-trip">行前提醒</a>
+    </nav>
+
+    <div class="notice">這版改成觀光景點為主、自然景觀為輔；時間與店名先以示意安排，之後再替換成實際航班、住宿與餐廳。每天保留休息彈性，長輩與小朋友累了就少去一站。</div>
+
+    <section class="day-card key-time-card" id="important-times">
+      <div class="day-head"><div class="day-number">先看</div><div><h3>重要時間</h3><p>航班、出發與回家時間｜台灣與濟州時間相同</p></div></div>
+      <div class="stops">
+        <div class="stop"><div class="time">10/30<br>11:25</div><div><div class="place">從家裡出發（示意）</div><div class="desc">以家到桃園機場約 1 小時估算；請依實際車程、接送與塞車狀況調整。</div></div></div>
+        <div class="stop"><div class="time">10/30<br>12:25</div><div><div class="place">抵達桃園國際機場</div><div class="desc">德威航空 TW688，14:25 起飛；抓起飛前 2 小時抵達機場。</div></div></div>
+        <div class="stop"><div class="time">10/30<br>17:25</div><div><div class="place">抵達濟州島</div><div class="desc">入境、領行李、取車後前往西部住宿；第一天不再安排景點。</div></div></div>
+        <div class="stop"><div class="time">11/05<br>20:15</div><div><div class="place">抵達濟州國際機場</div><div class="desc">真航空 LJ941，22:15 起飛；抓起飛前 2 小時抵達機場。</div></div></div>
+        <div class="stop"><div class="time">11/05<br>23:45</div><div><div class="place">抵達桃園國際機場</div><div class="desc">預估 00:45–01:15 完成入境與領行李；若機場到家約 1 小時，約 01:45–02:15 回到家。</div></div></div>
+      </div>
+    </section>
+
+    <h2 class="section-title">每日行程 <small>住宿區域由西向南、向東，再回到機場市區</small></h2>
+
+    <article class="day-card" id="day1">
+      <div class="day-head"><div class="day-number">D1</div><div><h3>10/30（五）抵達濟州</h3><p><span class="stay">住：濟州島西邊</span>｜抵達日放慢腳步</p></div></div>
+      <div class="stops">
+        <div class="stop"><div class="time">17:25</div><div><div class="place">濟州國際機場</div><div class="desc">抵達、領行李，先在機場補充飲水與簡單點心。</div></div></div>
+        <div class="stop"><div class="time">19:00</div><div><div class="place">示意餐廳：海風鮑魚粥</div><div class="desc">取車後吃一頓清淡晚餐，讓長輩與孩子舒服適應。</div></div></div>
+        <div class="stop"><div class="time">20:30</div><div><div class="place">西邊住宿 Check-in</div><div class="desc">早點休息，確認隔天自駕路線與車況。</div></div></div>
+      </div>
+    </article>
+
+    <article class="day-card" id="day2">
+      <div class="day-head"><div class="day-number">D2</div><div><h3>10/31（六）西部主題景點日</h3><p><span class="stay">住：濟州島西邊</span>｜茶園、文創與 Hello Kitty</p></div></div>
+      <div class="stops">
+        <div class="stop"><div class="time">09:30</div><div><div class="place">O’sulloc Tea Museum</div><div class="desc">室內展覽、茶點與伴手禮一次安排，長輩和孩子都能輕鬆參觀。</div></div></div>
+        <div class="stop"><div class="time">11:30</div><div><div class="place">示意午餐：綠茶庭園餐廳</div><div class="desc">就在西部景點附近用餐，餐後稍微休息再繼續。</div></div></div>
+        <div class="stop"><div class="time">13:30</div><div><div class="place">Hello Kitty Island</div><div class="desc">以室內主題展館、角色場景與商店為主，適合全家慢慢逛。</div></div></div>
+        <div class="stop"><div class="time">17:00</div><div><div class="place">西部住宿區晚餐</div><div class="desc">結束主題館行程後直接回住宿附近，晚上不再排遠程景點。</div></div></div>
+      </div>
+    </article>
+
+    <article class="day-card" id="day3">
+      <div class="day-head"><div class="day-number">D3</div><div><h3>11/01（日）博物館・中文觀光區</h3><p><span class="stay">住：Seogwipo</span>｜下午移動到西歸浦</p></div></div>
+      <div class="stops">
+        <div class="stop"><div class="time">09:30</div><div><div class="place">濟州航空宇宙博物館</div><div class="desc">室內展覽與互動內容為主，適合雨天或不想走太多路的家庭。</div></div></div>
+        <div class="stop"><div class="time">12:30</div><div><div class="place">示意午餐：西部家庭餐廳</div><div class="desc">吃飽後安排短暫休息，再慢慢開往 Seogwipo。</div></div></div>
+        <div class="stop"><div class="time">14:30</div><div><div class="place">濟州泰迪熊博物館</div><div class="desc">館內有主題展示與商店，步行量較少，孩子也容易投入。</div></div></div>
+        <div class="stop"><div class="time">17:00</div><div><div class="place">Seogwipo 住宿 Check-in</div><div class="desc">辦理入住後就在附近吃晚餐，晚上保留休息時間。</div></div></div>
+      </div>
+    </article>
+
+    <article class="day-card" id="day4">
+      <div class="day-head"><div class="day-number">D4</div><div><h3>11/02（一）文化體驗・前往東部</h3><p><span class="stay">住：濟州島東邊</span>｜移動日不排太滿</p></div></div>
+      <div class="stops">
+        <div class="stop"><div class="time">09:30</div><div><div class="place">西歸浦每日偶來市場</div><div class="desc">退房後先逛市場、買水果與小吃，行李留在車上即可。</div></div></div>
+        <div class="stop"><div class="time">11:30</div><div><div class="place">示意午餐：西歸浦家常菜</div><div class="desc">用餐後再出發，將車程分段，避免長輩與孩子太累。</div></div></div>
+        <div class="stop"><div class="time">14:00</div><div><div class="place">城邑民俗村</div><div class="desc">看看濟州傳統房屋與生活文化，安排短時間參觀即可。</div></div></div>
+        <div class="stop"><div class="time">17:00</div><div><div class="place">東部住宿 Check-in</div><div class="desc">入住後在住宿附近用餐，為隔天 Snoopy Garden 留體力。</div></div></div>
+      </div>
+    </article>
+
+    <article class="day-card" id="day5">
+      <div class="day-head"><div class="day-number">D5</div><div><h3>11/03（二）Snoopy Garden 主題日</h3><p><span class="stay">住：濟州島東邊</span>｜東部人氣景點</p></div></div>
+      <div class="stops">
+        <div class="stop"><div class="time">09:30</div><div><div class="place">Snoopy Garden</div><div class="desc">先逛室內 Garden House，再依體力挑選戶外場景；預留 2–3 小時。</div></div></div>
+        <div class="stop"><div class="time">13:00</div><div><div class="place">示意午餐：Peanuts Garden Cafe</div><div class="desc">在園區或附近用餐，餐後坐下休息，不急著趕下一站。</div></div></div>
+        <div class="stop"><div class="time">15:30</div><div><div class="place">城山日出峰周邊</div><div class="desc">只安排山腳與觀景處，想看就看、不登頂，讓行程保持輕鬆。</div></div></div>
+        <div class="stop"><div class="time">17:30</div><div><div class="place">東部住宿區晚餐</div><div class="desc">回住宿附近吃飯，晚上不再安排需要走路的景點。</div></div></div>
+      </div>
+    </article>
+
+    <article class="day-card" id="day6">
+      <div class="day-head"><div class="day-number">D6</div><div><h3>11/04（三）博物館與市區夜晚</h3><p><span class="stay">住：濟州島機場周圍市區</span>｜回市區前的最後一日</p></div></div>
+      <div class="stops">
+        <div class="stop"><div class="time">09:30</div><div><div class="place">濟州石文化公園（示意）</div><div class="desc">以濟州石頭文化為主題，挑選短路線參觀，不勉強走完整園區。</div></div></div>
+        <div class="stop"><div class="time">12:30</div><div><div class="place">示意午餐：東部海鮮料理</div><div class="desc">午餐後直接往濟州市區移動，途中留出休息時間。</div></div></div>
+        <div class="stop"><div class="time">15:30</div><div><div class="place">機場周邊市區 Check-in</div><div class="desc">先放行李、確認還車安排，讓最後一天不必匆忙。</div></div></div>
+        <div class="stop"><div class="time">18:00</div><div><div class="place">東門傳統市場</div><div class="desc">逛熟食攤與伴手禮，想坐下時可隨時找餐廳休息。</div></div></div>
+      </div>
+    </article>
+
+    <article class="day-card" id="day7">
+      <div class="day-head"><div class="day-number">D7</div><div><h3>11/05（四）市區文化・採買・返程</h3><p><span class="stay">住：濟州島機場周圍市區</span>｜預留充足機場時間</p></div></div>
+      <div class="stops">
+        <div class="stop"><div class="time">09:30</div><div><div class="place">濟州民俗自然史博物館</div><div class="desc">用室內展覽認識濟州的生活與文化，步行量比戶外景點少。</div></div></div>
+        <div class="stop"><div class="time">12:00</div><div><div class="place">示意餐廳：濟州市民食堂</div><div class="desc">吃最後一頓濟州料理，餐後回飯店休息、整理行李。</div></div></div>
+        <div class="stop"><div class="time">15:00</div><div><div class="place">七星路商圈・伴手禮採買</div><div class="desc">買橘子巧克力、海苔等，確認護照、行李與還車事項。</div></div></div>
+        <div class="stop"><div class="time">20:15</div><div><div class="place">濟州國際機場</div><div class="desc">起飛前 2 小時抵達，辦理報到與托運，22:15 搭機返程。</div></div></div>
+      </div>
+    </article>
+
+    <section class="day-card prep-card" id="before-trip">
+      <div class="day-head"><div class="day-number">準備</div><div><h3>行前提醒</h3><p>以下內容為示意，出發前再確認最新資訊</p></div></div>
+      <div class="stops">
+        <div class="stop"><div class="time">氣溫</div><div><div class="place">約 15–23°C（示意）</div><div class="desc">早晚偏涼、海邊風較大，建議採洋蔥式穿搭。</div></div></div>
+        <div class="stop"><div class="time">攜帶</div><div><div class="place">薄外套、防風衣、雨具、好走的鞋</div><div class="desc">另備孩子替換衣物、長輩常用藥與個人證件。</div></div></div>
+        <div class="stop"><div class="time">注意</div><div><div class="place">依天候與家人體力彈性調整</div><div class="desc">自駕時確認停車位置與路況，海邊、山區注意風勢與安全。</div></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>濟州島家庭自駕・示意行程版本<br>實際時間請依航班、天候與家人狀況彈性調整</footer>
+</body>
+</html>
